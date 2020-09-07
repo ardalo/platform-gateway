@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+
+# IDE
+/.idea/
+/.settings/
+/.vscode/
+*.iml
+.classpath
+.project
+
+# Build
+/.gradle/
+/build/
+
+# Unnecessary for Docker Image
+/src/test/
+/.dockerignore
+/.editorconfig
+/.gitignore
+/docker-compose.yml
+/Dockerfile

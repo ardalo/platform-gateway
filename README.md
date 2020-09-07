@@ -27,3 +27,11 @@ Platform Gateway of the Ardalo Digital Platform.
     ```bash
     $ ./gradlew clean build
     ```
+* Build Docker Image using `docker-compose`
+    ```bash
+    $ docker-compose build
+    ```
+* Start Docker Container using `docker-compose`
+    ```bash
+    $ docker-compose up
+    ```
