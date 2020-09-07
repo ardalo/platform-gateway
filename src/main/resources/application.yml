@@ -1,0 +1,3 @@
+spring:
+  application.name: Platform Gateway
+  main.banner-mode: off
