@@ -7,6 +7,7 @@ Platform Gateway of the Ardalo Digital Platform.
 * Gradle
 * Spring Cloud Gateway
 * Spock
+* Prometheus Metrics
 * JaCoCo Code Coverage Report
 * Docker
 
@@ -36,3 +37,7 @@ Platform Gateway of the Ardalo Digital Platform.
     ```bash
     $ docker-compose up
     ```
+
+## Provided Endpoints
+The OpenAPI Documentation can be found at the root path of the service (e.g. `http://localhost:8080/`).
+It provides an overview of all endpoints.
