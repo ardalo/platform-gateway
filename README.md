@@ -8,6 +8,7 @@ Platform Gateway of the Ardalo Digital Platform.
 * Spring Cloud Gateway
 * Spock
 * JaCoCo Code Coverage Report
+* Docker
 
 ## Quick Start
 
