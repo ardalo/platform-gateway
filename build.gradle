@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
   implementation 'io.micrometer:micrometer-registry-prometheus:1.5.4'
+  implementation 'io.springfox:springfox-boot-starter:3.0.0'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
   implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
   testImplementation 'org.codehaus.groovy:groovy-all:3.0.5'
