@@ -9,12 +9,12 @@ import reactor.core.publisher.Mono;
 public class HealthController {
 
   @GetMapping("/alive")
-  public ResponseEntity<Mono<Void>> isAlive() {
-    return ResponseEntity.ok().build();
+  public Mono<ResponseEntity<Void>> isAlive() {
+    return Mono.just(ResponseEntity.ok().build());
   }
 
   @GetMapping("/ready")
-  public ResponseEntity<Mono<Void>> isReady() {
-    return ResponseEntity.ok().build();
+  public Mono<ResponseEntity<Void>> isReady() {
+    return Mono.just(ResponseEntity.ok().build());
   }
 }
