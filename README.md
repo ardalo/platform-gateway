@@ -1,4 +1,6 @@
 # Ardalo Digital Platform Gateway
+![Build Status](https://github.com/ardalo/platform-gateway/workflows/Build/badge.svg)
+
 Platform Gateway of the Ardalo Digital Platform.
 
 ## Tech Info
