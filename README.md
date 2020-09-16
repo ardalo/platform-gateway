@@ -16,27 +16,27 @@ __Java Spring Cloud Gateway__
 
 ## Quick Start
 * Start application
-    ```bash
+    ```console
     $ ./gradlew bootRun
     ```
 * Run tests
-    ```bash
+    ```console
     $ ./gradlew test
     ```
 * Generate Code Coverage Report. HTML Report can be found in `./build/reports/jacoco/test/html`
-    ```bash
+    ```console
     $ ./gradlew check jacocoTestReport
     ```
 * Build application JAR (and run tests)
-    ```bash
+    ```console
     $ ./gradlew clean build
     ```
 * Build Docker Image using `docker-compose`
-    ```bash
+    ```console
     $ docker-compose build
     ```
 * Start Docker Container using `docker-compose`
-    ```bash
+    ```console
     $ docker-compose up
     ```
 
