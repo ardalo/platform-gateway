@@ -4,7 +4,7 @@
 Platform Gateway of the Ardalo Digital Platform.
 
 ## Tech Info
-
+__Java Spring Cloud Gateway__
 * Java 11
 * Gradle
 * Spring Cloud Gateway
@@ -15,7 +15,6 @@ Platform Gateway of the Ardalo Digital Platform.
 * Docker
 
 ## Quick Start
-
 * Start application
     ```bash
     $ ./gradlew bootRun
