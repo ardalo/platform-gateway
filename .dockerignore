@@ -1,6 +1,9 @@
 # OS
 .DS_Store
 
+# VCS
+/.git/
+
 # IDE
 /.idea/
 /.settings/
@@ -14,6 +17,7 @@
 /build/
 
 # Unnecessary for Docker Image
+/.github/
 /src/test/
 /.dockerignore
 /.editorconfig
