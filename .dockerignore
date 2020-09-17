@@ -16,7 +16,7 @@
 /.gradle/
 /build/
 
-# Unnecessary for Docker Image
+# Unnecessary Source Files
 /.github/
 /src/test/
 /.dockerignore
@@ -24,3 +24,4 @@
 /.gitignore
 /docker-compose.yml
 /Dockerfile
+*.md
