@@ -11,21 +11,21 @@ class HealthControllerIT extends Specification {
 
   def webTestClient = WebTestClient.bindToController(HealthController).build()
 
-  def "should return 200 OK for GET /alive"() {
+  def "should return 200 OK for alive endpoint"() {
     expect:
     webTestClient
       .get()
-      .uri("/alive")
+      .uri("/gateway/alive")
       .exchange()
       .expectStatus().isOk()
       .expectBody().isEmpty()
   }
 
-  def "should return 200 OK for GET /ready"() {
+  def "should return 200 OK for ready endpoint"() {
     expect:
     webTestClient
       .get()
-      .uri("/ready")
+      .uri("/gateway/ready")
       .exchange()
       .expectStatus().isOk()
       .expectBody().isEmpty()

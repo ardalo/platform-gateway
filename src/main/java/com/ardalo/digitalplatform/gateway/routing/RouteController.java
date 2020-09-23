@@ -16,7 +16,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/routes/v1")
+@RequestMapping("/gateway/api/routes/v1")
 public class RouteController {
 
   private final GatewayControllerEndpoint gatewayControllerEndpoint;

@@ -8,12 +8,12 @@ import reactor.core.publisher.Mono;
 @Controller
 public class HealthController {
 
-  @GetMapping("/alive")
+  @GetMapping("/gateway/alive")
   public Mono<ResponseEntity<Void>> isAlive() {
     return Mono.just(ResponseEntity.ok().build());
   }
 
-  @GetMapping("/ready")
+  @GetMapping("/gateway/ready")
   public Mono<ResponseEntity<Void>> isReady() {
     return Mono.just(ResponseEntity.ok().build());
   }

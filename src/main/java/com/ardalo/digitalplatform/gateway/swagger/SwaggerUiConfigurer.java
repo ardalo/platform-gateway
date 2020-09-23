@@ -14,7 +14,7 @@ public class SwaggerUiConfigurer {
   @Bean
   public RouterFunction<ServerResponse> swaggerUiOnRootPathRedirect() {
     return route()
-      .GET("/", req -> ServerResponse.permanentRedirect(URI.create("/swagger-ui/index.html")).build())
+      .GET("/gateway", req -> ServerResponse.permanentRedirect(URI.create("/gateway/swagger-ui/index.html")).build())
       .build();
   }
 }
