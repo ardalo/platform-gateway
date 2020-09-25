@@ -56,18 +56,11 @@ Example #1: Frontpage - Route requests to root path "/" to backend service
 * `POST /gateway/api/routes/v1/frontpage`
 ```json
 {
-  // The URI to route the request to (only schema/host/port. Path will be ignored)
   "uri":"http://frontpage-service:8080",
-
-  // The predicates to check whether the incoming request matches this route
   "predicates": [
-    // Example predicate: Request path matches pattern "/"
     {"name":"Path","args":{"arg0":"/"}}
   ],
-
-  // Filters used to alter the request to the backend service as well as its response
   "filters": [
-    // Example filter: Transform path of the incoming request before sending it to the backend service
     {"name":"RewritePath","args":{"regexp":".+","replacement":"/api/pages/frontpage"}}
   ]
 }
