@@ -43,3 +43,58 @@ __Java Spring Cloud Gateway__
 ## API Documentation
 The OpenAPI Documentation (Swagger UI) can be found at the root path of the service (e.g. `http://localhost:8080/`).
 It provides an overview of all endpoints.
+
+## Create Platform Routes
+All incoming requests approach at this Platform Gateway. In order to route those requests to other services, the
+corresponding platform routes need to be created at this Platform Gateway.
+
+Platform routes are created via REST API calls: `POST /gateway/api/routes/v1/{routeId}`. The request body contains the route
+definition in [Spring Cloud Gateway](https://cloud.spring.io/spring-cloud-gateway/reference/html/#creating-and-deleting-a-particular-route)
+format.
+
+Example #1: Frontpage - Route requests to root path "/" to backend service
+* `POST /gateway/api/routes/v1/frontpage`
+```json
+{
+  // The URI to route the request to (only schema/host/port. Path will be ignored)
+  "uri":"http://frontpage-service:8080",
+
+  // The predicates to check whether the incoming request matches this route
+  "predicates": [
+    // Example predicate: Request path matches pattern "/"
+    {"name":"Path","args":{"arg0":"/"}}
+  ],
+
+  // Filters used to alter the request to the backend service as well as its response
+  "filters": [
+    // Example filter: Transform path of the incoming request before sending it to the backend service
+    {"name":"RewritePath","args":{"regexp":".+","replacement":"/api/pages/frontpage"}}
+  ]
+}
+```
+
+Example #2: Product Details Page - Route requests to "/products/{productId}" and "/products/{seo-friendly-product-title}/{productId}" to backend service
+* `POST /gateway/api/routes/v1/product-details-page-without-product-title-in-url`
+```json
+{
+  "uri":"http://product-service:8080",
+  "predicates": [
+    {"name":"Path","args":{"arg0":"/p/{productId}"}}
+  ],
+  "filters": [
+    {"name":"RewritePath","args":{"regexp":"/p/(?<productId>.*)","replacement":"/api/pages/product-details-page/${productId}"}}
+  ]
+}
+```
+* `POST /gateway/api/routes/v1/product-details-page-with-product-title-in-url`
+```json
+{
+  "uri":"http://product-service:8080",
+  "predicates": [
+    {"name":"Path","args":{"arg0":"/p/{productTitle}/{productId}"}}
+  ],
+  "filters": [
+    {"name":"RewritePath","args":{"regexp":"/p/(?<productTitle>.*?)/(?<productId>.*)","replacement":"/api/pages/product-details-page/${productId}"}}
+  ]
+}
+```
