@@ -28,7 +28,7 @@ class RouteControllerIT extends Specification {
       .post()
       .uri("/gateway/api/routes/v1/test-route-003")
       .contentType(MediaType.APPLICATION_JSON)
-      .bodyValue('{"uri":"http://backend-service:80/test","predicates":[{"name":"Path","args":{"arg0":"/test"}}]}')
+      .bodyValue('{"uri":"http://backend-service:80","predicates":[{"name":"Path","args":{"arg0":"/test"}}]}')
       .exchange()
       .expectStatus().isCreated()
 
@@ -39,7 +39,7 @@ class RouteControllerIT extends Specification {
       .exchange()
       .expectStatus().isOk()
       .expectHeader().contentType(MediaType.APPLICATION_JSON)
-      .expectBody().json('{"route_id":"test-route-003","predicate":"Paths: [/test], match trailing slash: true","filters":[],"uri":"http://backend-service:80/test","order":0}')
+      .expectBody().json('{"route_id":"test-route-003","predicate":"Paths: [/test], match trailing slash: true","filters":[],"uri":"http://backend-service:80","order":0}')
 
     cleanup:
     webTestClient
@@ -76,7 +76,7 @@ class RouteControllerIT extends Specification {
       .post()
       .uri("/gateway/api/routes/v1/test-route-001")
       .contentType(MediaType.APPLICATION_JSON)
-      .bodyValue('{"id":"foobar","uri":"http://backend-service:80/test","predicates":[{"name":"Path","args":{"arg0":"/test"}}]}')
+      .bodyValue('{"id":"foobar","uri":"http://backend-service:80","predicates":[{"name":"Path","args":{"arg0":"/test"}}]}')
       .exchange()
       .expectStatus().isCreated()
 
@@ -87,7 +87,7 @@ class RouteControllerIT extends Specification {
       .exchange()
       .expectStatus().isOk()
       .expectHeader().contentType(MediaType.APPLICATION_JSON)
-      .expectBody().json('[{"route_id":"test-route-001","predicate":"Paths: [/test], match trailing slash: true","filters":[],"uri":"http://backend-service:80/test","order":0}]')
+      .expectBody().json('[{"route_id":"test-route-001","predicate":"Paths: [/test], match trailing slash: true","filters":[],"uri":"http://backend-service:80","order":0}]')
 
     cleanup:
     webTestClient
@@ -103,7 +103,7 @@ class RouteControllerIT extends Specification {
       .post()
       .uri("/gateway/api/routes/v1/test-route-002")
       .contentType(MediaType.APPLICATION_JSON)
-      .bodyValue('{"id":"foobar","uri":"http://backend-service:80/test","predicates":[{"name":"Path","args":{"arg0":"/test"}}]}')
+      .bodyValue('{"id":"foobar","uri":"http://backend-service:80","predicates":[{"name":"Path","args":{"arg0":"/test"}}]}')
       .exchange()
       .expectStatus().isCreated()
       .expectHeader().doesNotExist(HttpHeaders.LOCATION)
@@ -123,7 +123,7 @@ class RouteControllerIT extends Specification {
       .post()
       .uri("/gateway/api/routes/v1/test-route-005")
       .contentType(MediaType.APPLICATION_JSON)
-      .bodyValue('{"uri":"http://backend-service:80/test","predicates":[{"name":"Unknown"}]}')
+      .bodyValue('{"uri":"http://backend-service:80","predicates":[{"name":"Unknown"}]}')
       .exchange()
       .expectStatus().isBadRequest()
       .expectBody().isEmpty()
