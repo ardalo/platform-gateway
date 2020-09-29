@@ -11,6 +11,7 @@ __Java Spring Cloud Gateway__
 * Spock
 * Prometheus Metrics
 * Swagger UI
+* Access and Application Logs in JSON format
 * JaCoCo Code Coverage Report
 * Docker
 

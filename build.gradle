@@ -19,6 +19,7 @@ repositories {
 dependencies {
   implementation 'io.micrometer:micrometer-registry-prometheus:1.5.4'
   implementation 'io.springfox:springfox-boot-starter:3.0.0'
+  implementation 'net.logstash.logback:logstash-logback-encoder:6.4'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
   implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
   // Version of com.squareup.okhttp3:mockwebserver must by in sync with com.squareup.okhttp3:okhttp3 from org.springframework.boot Gradle Plugin

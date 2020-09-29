@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <springProfile name="default">
+    <appender name="CONSOLE_JSON" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+        <!-- Providers see https://github.com/logstash/logstash-logback-encoder#providers-for-loggingevents -->
+        <!-- Pattern Details see http://logback.qos.ch/manual/layouts.html#conversionWord -->
+        <providers>
+          <timestamp>
+            <timeZone>UTC</timeZone>
+          </timestamp>
+          <pattern>
+            <pattern>
+              {
+              "type": "application",
+              "msg": "%message",
+              "logger": "%logger",
+              "level": "%level",
+              "class": "%class",
+              "method": "%method",
+              "file": "%file",
+              "line": "%line",
+              "stacktrace": "%exception"
+              }
+            </pattern>
+          </pattern>
+          <mdc/>
+          <arguments>
+            <includeNonStructuredArguments>false</includeNonStructuredArguments>
+          </arguments>
+        </providers>
+      </encoder>
+    </appender>
+    <root level="INFO">
+      <appender-ref ref="CONSOLE_JSON"/>
+    </root>
+  </springProfile>
+  <springProfile name="local">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <root level="INFO">
+      <appender-ref ref="CONSOLE"/>
+    </root>
+  </springProfile>
+</configuration>
