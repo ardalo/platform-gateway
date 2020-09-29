@@ -4,8 +4,10 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.ConsoleAppender;
+import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import net.logstash.logback.composite.loggingevent.LoggingEventFormattedTimestampJsonProvider;
 import net.logstash.logback.composite.loggingevent.MdcJsonProvider;
 import net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder;
@@ -45,7 +47,7 @@ public class AccessLogFilter implements WebFilter {
         mdcParameters.put("duration", String.valueOf(System.currentTimeMillis() - startTime));
         mdcParameters.put("userAgent", originalRequest.getHeaders().getFirst("User-Agent"));
         mdcParameters.put("correlationId", originalRequest.getId());
-        mdcParameters.put("remoteIp", originalRequest.getRemoteAddress().getHostString());
+        mdcParameters.put("remoteAddress", Optional.ofNullable(originalRequest.getRemoteAddress()).map(InetSocketAddress::getHostName).orElse(null));
 
         if (Boolean.TRUE.equals(exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ALREADY_ROUTED_ATTR))) {
           Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
