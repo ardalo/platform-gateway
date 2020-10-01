@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class AccessLogFilter implements WebFilter {
 
-  private final Logger accessLogger = getAccessLogger();
+  private final Logger accessLogger = createAccessLogger();
 
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
@@ -47,9 +47,11 @@ public class AccessLogFilter implements WebFilter {
         mdcParameters.put("duration", String.valueOf(System.currentTimeMillis() - startTime));
         mdcParameters.put("userAgent", originalRequest.getHeaders().getFirst("User-Agent"));
         mdcParameters.put("correlationId", originalRequest.getId());
-        mdcParameters.put("remoteAddress", Optional.ofNullable(originalRequest.getRemoteAddress()).map(InetSocketAddress::getHostName).orElse(null));
+        mdcParameters.put("remoteAddress", Optional.ofNullable(originalRequest.getRemoteAddress())
+          .map(InetSocketAddress::getHostName)
+          .orElse(null));
 
-        if (Boolean.TRUE.equals(exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ALREADY_ROUTED_ATTR))) {
+        if (this.requestRoutedToDownstreamService(exchange)) {
           Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
           mdcParameters.put("matchedRoute", route.getId());
           mdcParameters.put("forwardedTo", exchange.getRequest().getURI().toString());
@@ -61,7 +63,7 @@ public class AccessLogFilter implements WebFilter {
       }));
   }
 
-  private Logger getAccessLogger() {
+  private Logger createAccessLogger() {
     LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
 
     LoggingEventCompositeJsonEncoder logEncoder = new LoggingEventCompositeJsonEncoder();
@@ -81,5 +83,9 @@ public class AccessLogFilter implements WebFilter {
     logger.setLevel(Level.INFO);
     logger.addAppender(logConsoleAppender);
     return logger;
+  }
+
+  private boolean requestRoutedToDownstreamService(ServerWebExchange exchange) {
+    return Boolean.TRUE.equals(exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ALREADY_ROUTED_ATTR));
   }
 }
