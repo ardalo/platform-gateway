@@ -1,10 +1,11 @@
-package com.ardalo.digitalplatform.gateway.accesslog;
+package com.ardalo.digitalplatform.gateway.logging;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.ConsoleAppender;
 import java.net.InetSocketAddress;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class AccessLogFilter implements WebFilter {
     ServerHttpRequest originalRequest = exchange.getRequest();
 
     return chain.filter(exchange)
-      .then(Mono.fromRunnable(() -> {
+      .doFinally(signalType -> {
         Map<String, String> mdcParameters = new HashMap<>();
         mdcParameters.put("type", "access");
         mdcParameters.put("method", originalRequest.getMethodValue());
@@ -52,15 +53,18 @@ public class AccessLogFilter implements WebFilter {
           .orElse(null));
 
         if (this.requestRoutedToDownstreamService(exchange)) {
-          Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
-          mdcParameters.put("matchedRoute", route.getId());
-          mdcParameters.put("forwardedTo", exchange.getRequest().getURI().toString());
+          mdcParameters.put("matchedRoute", Optional.ofNullable(exchange.<Route>getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR))
+            .map(Route::getId)
+            .orElse(null));
+          mdcParameters.put("forwardedTo", Optional.ofNullable(exchange.<URI>getAttribute(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR))
+            .map(URI::toString)
+            .orElse(null));
         }
 
         mdcParameters.forEach(MDC::put);
         accessLogger.info("access log");
         mdcParameters.forEach((key, value) -> MDC.remove(key));
-      }));
+      });
   }
 
   private Logger createAccessLogger() {
