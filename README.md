@@ -76,7 +76,7 @@ Example #2: Product Details Page - Route requests to "/products/{productId}" and
     {"name":"Path","args":{"arg0":"/p/{productId}"}}
   ],
   "filters": [
-    {"name":"RewritePath","args":{"regexp":"/p/(?<productId>.*)","replacement":"/api/pages/product-details-page/${productId}"}}
+    {"name":"RewritePath","args":{"regexp":"/p/(?<productId>.+)","replacement":"/api/pages/product-details-page/${productId}"}}
   ]
 }
 ```
@@ -88,7 +88,7 @@ Example #2: Product Details Page - Route requests to "/products/{productId}" and
     {"name":"Path","args":{"arg0":"/p/{productTitle}/{productId}"}}
   ],
   "filters": [
-    {"name":"RewritePath","args":{"regexp":"/p/(?<productTitle>.*?)/(?<productId>.*)","replacement":"/api/pages/product-details-page/${productId}"}}
+    {"name":"RewritePath","args":{"regexp":"/p/(?<productTitle>.+?)/(?<productId>.+)","replacement":"/api/pages/product-details-page/${productId}"}}
   ]
 }
 ```
