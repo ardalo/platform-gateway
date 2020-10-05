@@ -1,5 +1,7 @@
 # Ardalo Digital Platform Gateway
 ![Build Status](https://github.com/ardalo/platform-gateway/workflows/Build/badge.svg)
+[![Code Coverage](https://sonarcloud.io/api/project_badges/measure?project=ardalo_platform-gateway&metric=coverage)](https://sonarcloud.io/dashboard?id=ardalo_platform-gateway)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=ardalo_platform-gateway&metric=ncloc)](https://sonarcloud.io/dashboard?id=ardalo_platform-gateway)
 
 Platform Gateway of the Ardalo Digital Platform.
 
@@ -13,6 +15,7 @@ __Java Spring Cloud Gateway__
 * Swagger UI
 * Access and Application Logs in JSON format
 * JaCoCo Code Coverage Report
+* SonarQube Static Code Analysis via SonarCloud
 * Docker
 
 ## Quick Start
