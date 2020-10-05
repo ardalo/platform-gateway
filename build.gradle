@@ -19,7 +19,7 @@ repositories {
 
 sonarqube {
   properties {
-    property "sonar.projectKey", "ardalo_frontpage-service"
+    property "sonar.projectKey", "ardalo_platform-gateway"
     property "sonar.organization", "ardalo"
     property "sonar.host.url", "https://sonarcloud.io"
     property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
