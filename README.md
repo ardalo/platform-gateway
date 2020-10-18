@@ -15,7 +15,7 @@ __Java Spring Cloud Gateway__
 * Swagger UI
 * Access and Application Logs in JSON format
 * JaCoCo Code Coverage Report
-* SonarQube Static Code Analysis via SonarCloud
+* Static Code Analysis via SonarCloud
 * Docker
 
 ## Quick Start
