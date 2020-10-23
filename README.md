@@ -20,29 +20,29 @@ __Java Spring Cloud Gateway__
 
 ## Quick Start
 * Start application
-    ```console
-    $ ./gradlew bootRun
-    ```
+  ```console
+  $ ./gradlew bootRun
+  ```
 * Run tests
-    ```console
-    $ ./gradlew test
-    ```
+  ```console
+  $ ./gradlew test
+  ```
 * Generate Code Coverage Report. HTML Report can be found in `./build/reports/jacoco/test/html`
-    ```console
-    $ ./gradlew check jacocoTestReport
-    ```
+  ```console
+  $ ./gradlew check jacocoTestReport
+  ```
 * Build application JAR (and run tests)
-    ```console
-    $ ./gradlew clean build
-    ```
+  ```console
+  $ ./gradlew clean build
+  ```
 * Build Docker Image using `docker-compose`
-    ```console
-    $ docker-compose build
-    ```
+  ```console
+  $ docker-compose build
+  ```
 * Start Docker Container using `docker-compose`
-    ```console
-    $ docker-compose up
-    ```
+  ```console
+  $ docker-compose up
+  ```
 
 ## API Documentation
 The OpenAPI Documentation (Swagger UI) can be found at the root path of the service (e.g. `http://localhost:8080/`).
