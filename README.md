@@ -36,17 +36,13 @@ __Java Spring Cloud Gateway__
   ```console
   $ ./gradlew clean build
   ```
-* Build Docker Image using `docker-compose`
+* Run via Docker using `docker-compose` and find API docs at `http://localhost:8080/gateway`
   ```console
-  $ docker-compose build
-  ```
-* Start Docker Container using `docker-compose`
-  ```console
-  $ docker-compose up
+  $ docker-compose build && docker-compose up
   ```
 
 ## API Documentation
-The OpenAPI Documentation (Swagger UI) can be found at the root path of the service (e.g. `http://localhost:8080/`).
+The OpenAPI documentation (Swagger UI) can be found at path `/gateway` (e.g. `http://localhost:8080/gateway`).
 It provides an overview of all endpoints.
 
 ## Create Platform Routes
