@@ -17,6 +17,7 @@ __Java Spring Cloud Gateway__
 * JaCoCo Code Coverage Report
 * Static Code Analysis via SonarCloud
 * Docker
+* CI/CD: GitHub Actions
 
 ## Quick Start
 * Start application
