@@ -8,6 +8,8 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.web.client.RestTemplate
 import spock.lang.Specification
 
+import java.util.stream.Collectors
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class LoggingIT extends Specification {
 
@@ -38,7 +40,7 @@ class LoggingIT extends Specification {
 
   def "should write access logs in JSON format"() {
     when:
-    def logMessage = getAccessLogFor("/gateway/alive?foo=bar", new RestTemplate())
+    def logMessage = getAccessLogFor("/gateway/prometheus-metrics", new RestTemplate())
 
     then:
     logMessage.startsWith('{')
@@ -62,6 +64,6 @@ class LoggingIT extends Specification {
 
   private getLastLineFromOutputCapture() {
     def logMessage = outputCapture.toString().trim()
-    return logMessage.substring(logMessage.contains("\n") ? logMessage.lastIndexOf("\n") : 0).trim()
+    return logMessage.lines().collect(Collectors.toList()).last().trim()
   }
 }
