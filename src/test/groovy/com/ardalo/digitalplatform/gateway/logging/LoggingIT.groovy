@@ -40,7 +40,7 @@ class LoggingIT extends Specification {
 
   def "should write access logs in JSON format"() {
     when:
-    def logMessage = getAccessLogFor("/gateway/prometheus-metrics", new RestTemplate())
+    def logMessage = getAccessLogFor("/gateway/alive?foo=bar", new RestTemplate())
 
     then:
     logMessage.startsWith('{')
@@ -58,6 +58,24 @@ class LoggingIT extends Specification {
   }
 
   private getAccessLogFor(String requestPath, RestTemplate restTemplate) {
+    try {
+      restTemplate.getForEntity("http://localhost:8080", String.class)
+    } catch (e) {
+      System.out.println(e)
+    }
+
+    try {
+      restTemplate.getForEntity("http://localhost:" + port, String.class)
+    } catch (e) {
+      System.out.println(e)
+    }
+
+    try {
+      restTemplate.getForEntity("http://localhost:" + port + requestPath, String.class)
+    } catch (e) {
+      System.out.println(e)
+    }
+
     restTemplate.getForEntity("http://localhost:" + port + requestPath, String.class)
     return getLastLineFromOutputCapture()
   }
