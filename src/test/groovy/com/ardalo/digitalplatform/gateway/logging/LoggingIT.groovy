@@ -2,19 +2,22 @@ package com.ardalo.digitalplatform.gateway.logging
 
 import org.junit.Rule
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.system.OutputCaptureRule
-import org.springframework.boot.web.server.LocalServerPort
-import org.springframework.web.client.RestTemplate
+import org.springframework.context.ApplicationContext
+import org.springframework.test.web.reactive.server.WebTestClient
 import spock.lang.Specification
 
 import java.util.stream.Collectors
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
+@AutoConfigureWebTestClient
 class LoggingIT extends Specification {
 
-  @LocalServerPort
-  int port
+  @Autowired
+  ApplicationContext applicationContext
 
   @Rule
   OutputCaptureRule outputCapture = new OutputCaptureRule()
@@ -40,7 +43,12 @@ class LoggingIT extends Specification {
 
   def "should write access logs in JSON format"() {
     when:
-    def logMessage = getAccessLogFor("/gateway/alive?foo=bar", new RestTemplate())
+    WebTestClient.bindToApplicationContext(applicationContext).build()
+      .get()
+      .uri("/gateway/alive?foo=bar")
+      .exchange()
+      .expectStatus().isOk()
+    def logMessage = getLastLineFromOutputCapture()
 
     then:
     logMessage.startsWith('{')
@@ -51,33 +59,10 @@ class LoggingIT extends Specification {
     logMessage.contains('"query":"foo=bar"')
     logMessage.contains('"status":"200"')
     logMessage.contains('"duration":"')
-    logMessage.contains('"userAgent":"Java/')
+    !logMessage.contains('"userAgent":')
     logMessage.matches(/.+"correlationId":"[a-z0-9-]{2,}".+/)
-    logMessage.contains('"remoteAddress":"localhost"')
+    !logMessage.contains('"remoteAddress":')
     logMessage.endsWith('}')
-  }
-
-  private getAccessLogFor(String requestPath, RestTemplate restTemplate) {
-    try {
-      restTemplate.getForEntity("http://localhost:8080", String.class)
-    } catch (e) {
-      System.out.println(e)
-    }
-
-    try {
-      restTemplate.getForEntity("http://localhost:" + port, String.class)
-    } catch (e) {
-      System.out.println(e)
-    }
-
-    try {
-      restTemplate.getForEntity("http://localhost:" + port + requestPath, String.class)
-    } catch (e) {
-      System.out.println(e)
-    }
-
-    restTemplate.getForEntity("http://localhost:" + port + requestPath, String.class)
-    return getLastLineFromOutputCapture()
   }
 
   private getLastLineFromOutputCapture() {
