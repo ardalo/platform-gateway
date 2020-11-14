@@ -1,4 +1,4 @@
-package com.ardalo.digitalplatform.gateway.swagger
+package com.ardalo.digitalplatform.gateway.apidoc
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
@@ -20,7 +20,7 @@ class SwaggerUiIT extends Specification {
     expect:
     WebTestClient.bindToApplicationContext(applicationContext).build()
       .get()
-      .uri("/gateway/swagger-ui/index.html")
+      .uri("/gateway/apidoc/swagger-ui/index.html")
       .exchange()
       .expectStatus().isOk()
       .expectBody(String).consumeWith({ res ->
@@ -28,15 +28,18 @@ class SwaggerUiIT extends Specification {
       })
   }
 
-  def "should redirect GET /gateway to /gateway/swagger-ui/index.html"() {
+  def "should redirect GET /gateway/apidoc to /gateway/apidoc/swagger-ui/index.html"() {
     expect:
     WebTestClient.bindToApplicationContext(applicationContext).build()
       .get()
-      .uri("/gateway")
+      .uri(requestPath)
       .exchange()
       .expectStatus().isEqualTo(HttpStatus.PERMANENT_REDIRECT)
-      .expectHeader().valueEquals("Location", "/gateway/swagger-ui/index.html")
+      .expectHeader().valueEquals("Location", "/gateway/apidoc/swagger-ui/index.html")
       .expectBody().isEmpty()
+
+    where:
+    requestPath << ["/gateway/apidoc", "/gateway/apidoc/"]
   }
 
   def "should provide OpenAPI v3 API doc"() {

@@ -38,7 +38,7 @@ __Java Spring Cloud Gateway__
   ```
 
 ## API Documentation
-The OpenAPI documentation (Swagger UI) can be found at path `/gateway` (e.g. `http://localhost:8080/gateway`).
+Swagger UI is accessible via `/gateway/apidoc` (e.g. http://localhost:8080/gateway/apidoc).
 It provides an overview of all endpoints.
 
 ## Create Platform Routes

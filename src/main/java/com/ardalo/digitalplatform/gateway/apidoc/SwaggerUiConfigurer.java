@@ -1,4 +1,4 @@
-package com.ardalo.digitalplatform.gateway.swagger;
+package com.ardalo.digitalplatform.gateway.apidoc;
 
 import java.net.URI;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +14,7 @@ public class SwaggerUiConfigurer {
   @Bean
   public RouterFunction<ServerResponse> swaggerUiOnRootPathRedirect() {
     return route()
-      .GET("/gateway", req -> ServerResponse.permanentRedirect(URI.create("/gateway/swagger-ui/index.html")).build())
+      .GET("/gateway/apidoc", req -> ServerResponse.permanentRedirect(URI.create("/gateway/apidoc/swagger-ui/index.html")).build())
       .build();
   }
 }

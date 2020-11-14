@@ -15,6 +15,6 @@ management:
 
 springfox:
   documentation:
-    swagger-ui.baseUrl: /gateway
+    swagger-ui.baseUrl: /gateway/apidoc
     open-api.v3.path: /gateway/apidoc/v3
     swagger.v2.path: /gateway/apidoc/v2
