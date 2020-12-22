@@ -6,4 +6,4 @@ services:
     ports:
       - 8080:8080
     environment:
-      SPRING_PROFILES_ACTIVE: local
+      SPRING_PROFILES_ACTIVE: plaintext_application_logs
