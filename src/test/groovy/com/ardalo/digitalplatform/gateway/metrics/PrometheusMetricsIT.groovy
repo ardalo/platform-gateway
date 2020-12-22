@@ -1,6 +1,7 @@
 package com.ardalo.digitalplatform.gateway.metrics
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.actuate.metrics.AutoConfigureMetrics
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
@@ -9,6 +10,7 @@ import spock.lang.Specification
 
 @SpringBootTest
 @AutoConfigureWebTestClient
+@AutoConfigureMetrics
 class PrometheusMetricsIT extends Specification {
 
   @Autowired
