@@ -47,7 +47,7 @@ public class AccessLogFilter implements WebFilter {
         mdcParameters.put("status", String.valueOf(exchange.getResponse().getRawStatusCode()));
         mdcParameters.put("duration", String.valueOf(System.currentTimeMillis() - startTime));
         mdcParameters.put("userAgent", originalRequest.getHeaders().getFirst("User-Agent"));
-        mdcParameters.put("correlationId", originalRequest.getId());
+        mdcParameters.put("requestId", originalRequest.getId());
         mdcParameters.put("remoteAddress", Optional.ofNullable(originalRequest.getRemoteAddress())
           .map(InetSocketAddress::getHostName)
           .orElse(null));

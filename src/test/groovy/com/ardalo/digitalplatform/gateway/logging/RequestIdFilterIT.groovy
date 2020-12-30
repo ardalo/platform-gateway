@@ -1,4 +1,4 @@
-package com.ardalo.digitalplatform.gateway.correlationid
+package com.ardalo.digitalplatform.gateway.logging
 
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 @SpringBootTest
 @AutoConfigureWebTestClient
 @DirtiesContext
-class CorrelationIdFilterIT extends Specification {
+class RequestIdFilterIT extends Specification {
 
   @Autowired
   ApplicationContext applicationContext
@@ -36,27 +36,27 @@ class CorrelationIdFilterIT extends Specification {
     this.mockWebServer.shutdown()
   }
 
-  def "should add X-Correlation-ID header to downstream requests"() {
+  def "should add X-Request-ID header to downstream requests"() {
     given: "an existing platform route"
     webTestClient
       .post()
-      .uri("/gateway/api/routes/v1/correlation-id-test")
+      .uri("/gateway/api/routes/v1/request-id-test")
       .contentType(MediaType.APPLICATION_JSON)
-      .bodyValue('{"uri":"http://' + this.mockWebServer.hostName + ':' + this.mockWebServer.port + '","predicates":[{"name":"Path","args":{"arg0":"/correlation-id-test"}}]}')
+      .bodyValue('{"uri":"http://' + this.mockWebServer.hostName + ':' + this.mockWebServer.port + '","predicates":[{"name":"Path","args":{"arg0":"/request-id-test"}}]}')
       .exchange()
       .expectStatus().isCreated()
 
     when: "existing platform route is called"
     webTestClient
       .get()
-      .uri("/correlation-id-test")
+      .uri("/request-id-test")
       .exchange()
       .expectStatus().isOk()
 
-    then: "routed request contains X-Correlation-ID request header"
+    then: "routed request contains X-Request-ID request header"
     def recordedRequest = mockWebServer.takeRequest(50, TimeUnit.MILLISECONDS)
     recordedRequest.method == HttpMethod.GET.toString()
-    recordedRequest.path == "/correlation-id-test"
-    recordedRequest.getHeader("X-Correlation-ID").matches('^[a-f0-9-]+$')
+    recordedRequest.path == "/request-id-test"
+    recordedRequest.getHeader("X-Request-ID").matches('^[a-f0-9-]+$')
   }
 }

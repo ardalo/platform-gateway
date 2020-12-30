@@ -60,7 +60,7 @@ class LoggingIT extends Specification {
     logMessage.contains('"status":"200"')
     logMessage.contains('"duration":"')
     !logMessage.contains('"userAgent":')
-    logMessage.matches(/.+"correlationId":"[a-z0-9-]{2,}".+/)
+    logMessage.matches(/.+"requestId":"[a-z0-9-]{2,}".+/)
     !logMessage.contains('"remoteAddress":')
     logMessage.endsWith('}')
   }
