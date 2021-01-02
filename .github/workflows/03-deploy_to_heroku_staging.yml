@@ -1,0 +1,24 @@
+name: Deploy to Heroku Staging
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Build"]
+    branches: [master]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to Staging
+        uses: akhileshns/heroku-deploy@v3.8.8
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME_STAGING }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          usedocker: true
+        env:
+          HD_SERVER_PORT: "${PORT}"
