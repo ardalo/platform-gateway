@@ -36,6 +36,10 @@ __Java Spring Cloud Gateway__
   ```console
   $ ./gradlew check jacocoTestReport
   ```
+* Check for outdated dependencies via [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin)
+  ```console
+  $ ./gradlew dependencyUpdates -Drevision=release
+  ```
 
 ## API Documentation
 Swagger UI is accessible via `/gateway/apidoc` (e.g. http://localhost:8080/gateway/apidoc).
