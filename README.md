@@ -7,12 +7,10 @@ Platform Gateway of the Ardalo Digital Platform.
 
 ## Tech Info
 __Java Spring Cloud Gateway__
-* Java 11
 * Gradle
-* Spring Cloud Gateway
-* Spock
-* Prometheus Metrics
-* Swagger UI
+* Testing: Spock
+* Metrics: Prometheus
+* API Documentation: Swagger UI
 * Access and Application Logs in JSON format
 * JaCoCo Code Coverage Report
 * Static Code Analysis via SonarCloud
